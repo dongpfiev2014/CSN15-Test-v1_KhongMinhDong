@@ -1,0 +1,49 @@
+create database SQLBasic 
+CREATE TABLE Employees (
+    Employee_id INT PRIMARY KEY,
+    First_name VARCHAR(50),
+    Last_name VARCHAR(50),
+    Email VARCHAR(100),
+    Phone_number VARCHAR(20),
+    Hire_date DATE,
+    Job_id INT,
+    Salary DECIMAL(10, 2),
+    Commission_pct DECIMAL(3, 2),
+    Manager_id INT,
+    Department_id INT
+);
+
+--INSERT INTO Employees VALUES  (Employee_id, First_name, Last_name, Email, Phone_number, Hire_date, Job_id, Salary, Commission_pct, Manager_id, Department_id) 
+
+INSERT INTO Employees VALUES (10, 'Dong', 'Khong', 'dong.khong@gmail.com', '123-456-7890', '2024-01-01', 1, 12000000, 0.05, 2, 3),
+INSERT INTO Employees VALUES (12, 'Tay', 'Nguyen', 'tay.nguyen@gmail.com', '987-654-3210', '2024-01-15', 2, 15000000, 0.07, 4, 1),
+INSERT INTO Employees VALUES (13, 'Nam', 'Hoang', 'nam.hoang@gmail.com', '11144-222-3333', '2024-02-01', 3, 18000000, 0.08, 5, 2);
+
+SELECT * FROM Employees;
+SELECT First_name, Last_name, Salary FROM Employees;
+SELECT * FROM Employees WHERE Salary > 5000;
+SELECT * FROM Employees WHERE First_name LIKE 'A%';
+
+CREATE TABLE Departments (
+    Department_id INT PRIMARY KEY,
+    Department_name VARCHAR(50)
+);
+
+INSERT INTO Departments VALUES (1, 'Electrical Department'),
+INSERT INTO Departments VALUES (2, 'Test Department'),
+INSERT INTO Departments VALUES (3, 'Audit Department'),
+
+SELECT E.*, D.Department_name FROM Employees E
+INNER JOIN Departments D ON E.Department_id = D.Department_id;
+
+SELECT D.Department_name, COUNT(E.Employee_id) AS Employee_count FROM Employees E
+INNER JOIN Departments D ON E.Department_id = D.Department_id
+GROUP BY D.Department_name
+
+HAVING COUNT(E.Employee_id) > 10;
+
+INSERT INTO Employees VALUES (3, 'Bac', 'Trinh', 'bac.trinh@gmail.com', '186797-222-3333', '2024-07-01', 3, 19000000, 0.08, 5, 2);
+
+UPDATE Employees SET Salary = Salary * 1.1;
+
+DELETE FROM Employees WHERE Employee_id = 10;
